@@ -23,9 +23,6 @@ namespace devtools::debug_rendering::renderables {
 		for (auto* gameObject : gameManager->objects) {
 			for (auto* goc : gameObject->components) {
 				if (goc->pStaticClass == hh::anim::GOCAnimator::GetClass() || goc->pStaticClass == hh::anim::GOCAnimationSimple::GetClass()) {
-					if (goc->nameHash != csl::ut::HashString("Cape"))
-						continue;
-
 					auto* gocAnim = static_cast<hh::anim::GOCAnimationSingle*>(goc);
 					auto* pose = static_cast<hh::anim::PosePxd*>(gocAnim->GetPose());
 
@@ -64,24 +61,5 @@ namespace devtools::debug_rendering::renderables {
 	void Bones::RenderImGuiDebugVisuals(const ImGuiDrawContext& ctx) {
 		if (!enabled)
 			return;
-
-		//for (auto* gameObject : hh::game::GameManager::GetInstance()->objects) {
-		//	for (auto* goc : gameObject->components) {
-		//		if (goc->pStaticClass == hh::path::PathComponent::GetClass()) {
-		//			auto* pathGoc = static_cast<hh::path::PathComponent*>(goc);
-		//			auto maybePos = ctx.WorldCoordsToImGui(hh::path::PathEvaluator{ pathGoc }.GetWorldPosition(0.0f));
-
-		//			if (!maybePos.has_value())
-		//				continue;
-
-		//			OverlayTag(pathGoc->GetName(), false, maybePos.value(), ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
-
-		//			if (ImGui::BeginDragDropSource()) {
-		//				ImGui::SetDragDropPayload("Path", &pathGoc, sizeof(pathGoc));
-		//				ImGui::EndDragDropSource();
-		//			}
-		//		}
-		//	}
-		//}
 	}
 }
