@@ -31,6 +31,18 @@ const char* modifierNames[] = {
 	"FLUCTUATION",
 };
 
+const char* shapeNames[] = {
+	"POINT",
+	"SPHERE",
+	"DISC",
+	"CYLINDER",
+	"LINE",
+	"TORUS",
+	"CUBE",
+	"null",
+	"FIXED"
+};
+
 bool Editor(const char* label, TextureParam& texture) {
 	bool edited{};
 	ImGui::PushID(label);
@@ -202,9 +214,25 @@ bool Editor(const char* label, ElementParam& element) {
 bool Editor(const char* label, EmitterParam& emitter) {
 	bool edited{};
 	ImGui::PushID(label);
+	edited |= Editor("position", emitter.position);
+	edited |= Editor("rotation", emitter.rotation);
+	edited |= Editor("scale", emitter.scale);
+	edited |= ComboEnum("shape", emitter.shape, shapeNames);
+	edited |= Editor("useRadialDistribution", emitter.useRadialDistribution);
+	edited |= Editor("consistentSpreadAngle", emitter.consistentSpreadAngle);
+	edited |= Editor("useAngularSubdivisions", emitter.useAngularSubdivisions);
+	edited |= Editor("numSubDivisions", emitter.numSubDivisions);
+	edited |= Editor("disabled", emitter.disabled);
+	edited |= Editor("frequency", emitter.frequency);
+	edited |= Editor("frequencyRandomness", emitter.frequencyRandomness);
+	edited |= Editor("emitterCount", emitter.emitterCount);
+	edited |= Editor("emitterCountRandomness", emitter.emitterCountRandomness);
 	edited |= Editor("emitspeed", emitter.emitSpeed);
+	edited |= Editor("unkShapeRelated0", emitter.unkShapeRelated0);
+	edited |= Editor("shapeRadius", emitter.shapeRadius);
+	edited |= Editor("unkShapeRelated1", emitter.unkShapeRelated1);
+	edited |= Editor("emitSize", emitter.emitSize);
 	edited |= Editor("emitVector", emitter.emitVector);
-	edited |= Editor("emitVectorUnk", emitter.emitVectorUnk);
 	edited |= Editor("randomSeed", emitter.randomSeed);
 	edited |= Editor("element", emitter.elementParam);
 	ImGui::PopID();
