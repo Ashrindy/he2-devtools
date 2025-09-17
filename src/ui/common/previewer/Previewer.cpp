@@ -6,10 +6,12 @@ using namespace hh::needle;
 
 Previewer::~Previewer()
 {
-	auto* renderMgr = reinterpret_cast<hh::gfx::RenderManager*>(hh::gfnd::RenderManagerBase::GetInstance());
-	auto* renderEngine = renderMgr->GetNeedleResourceDevice();
+	if (renderTexture) {
+		auto* renderMgr = reinterpret_cast<hh::gfx::RenderManager*>(hh::gfnd::RenderManagerBase::GetInstance());
+		auto* renderEngine = renderMgr->GetNeedleResourceDevice();
 
-	renderEngine->DestroyRenderTextureHandle(renderTexture);
+		renderEngine->DestroyRenderTextureHandle(renderTexture);
+	}
 }
 
 Previewer::Previewer(csl::fnd::IAllocator* allocator) : CompatibleObject{ allocator }, models { allocator }, name{ allocator }
@@ -80,17 +82,49 @@ void Previewer::UpdateViewMatrix()
 	UpdateViewportData();
 }
 
-void Previewer::SetCameraToAABB(const csl::geom::Aabb& aabb)
+float Previewer::GetZoomToAABB(const csl::geom::Aabb& aabb) const
 {
 	csl::math::Vector3 bboxCenter = aabb.Center();
 	csl::math::Vector3 bboxExtent = aabb.Extent();
 	float maxDimension = bboxExtent.norm();
 
-	float distance = maxDimension * 2.5f;
+	return maxDimension * 2.5f;
+}
+
+float Previewer::GetZoomToAABB(hh::needle::PBRModelInstance* modelAabb) const
+{
+	csl::geom::Aabb bbox;
+	modelAabb->GetModelSpaceAabb(&bbox);
+	return GetZoomToAABB(bbox);
+}
+
+float Previewer::GetZoomToAABB() const
+{
+	if (models.empty()) return 2.5f;
+
+	float lastDistance = GetZoomToAABB(models[0]);
+
+	if (models.size()) return lastDistance;
+
+	for (auto* model : models) {
+		if (model == models[0]) continue;
+
+		float distance = GetZoomToAABB(model);
+		if (distance > lastDistance)
+			lastDistance = distance;
+	}
+
+	return lastDistance;
+}
+
+void Previewer::SetCameraToAABB(const csl::geom::Aabb& aabb)
+{
+	float distance = GetZoomToAABB(aabb);
 
 	csl::math::Vector3 direction = { 1, 1, 1 };
 	direction.normalize();
 
+	csl::math::Vector3 bboxCenter = aabb.Center();
 	csl::math::Vector3 camPos = bboxCenter + direction * distance;
 	csl::math::Vector3 camTargetPos = bboxCenter;
 

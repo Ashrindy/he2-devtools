@@ -7,6 +7,7 @@ using namespace hh::needle;
 
 ResModelEditor::~ResModelEditor()
 {
+	delete previewerCamera;
 	delete previewer;
 }
 
@@ -29,6 +30,9 @@ ResModelEditor::ResModelEditor(csl::fnd::IAllocator* allocator, ResModel* resour
 	previewer = new (allocator) Previewer{ allocator };
 	previewer->Setup({.name = nameRaw});
 	previewer->AddModel(resource, true);
+
+	previewerCamera = new (allocator) PreviewerCamera{ allocator };
+	previewerCamera->Setup(previewer);
 }
 
 ResModelEditor* ResModelEditor::Create(csl::fnd::IAllocator* allocator, ResModel* resource) {
@@ -51,4 +55,5 @@ void ResModelEditor::RenderContents()
 
 		ImGui::Image(texture, size);
 	}
+	previewerCamera->Render();
 }

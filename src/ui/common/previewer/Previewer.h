@@ -25,6 +25,10 @@ public:
 	void SetViewMatrix(const csl::math::Matrix34& mat);
 	void UpdateViewMatrix();
 
+	float GetZoomToAABB(const csl::geom::Aabb& aabb) const;
+	float GetZoomToAABB(hh::needle::PBRModelInstance* modelAabb) const;
+	float GetZoomToAABB() const;
+
 	void SetCameraToAABB(const csl::geom::Aabb& aabb);
 	void SetCameraToAABB(hh::needle::PBRModelInstance* modelAabb);
 	void SetCameraPositionAndTarget(const csl::math::Vector3& position, const csl::math::Vector3& target);
