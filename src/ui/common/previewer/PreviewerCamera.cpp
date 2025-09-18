@@ -3,10 +3,6 @@
 #define IMVIEWGUIZMO_IMPLEMENTATION
 #include <ImViewGuizmo.h>
 
-PreviewerCamera::~PreviewerCamera()
-{
-}
-
 PreviewerCamera::PreviewerCamera(csl::fnd::IAllocator* allocator) : CompatibleObject{ allocator }
 {
 }

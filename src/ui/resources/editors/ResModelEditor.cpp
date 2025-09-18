@@ -5,12 +5,6 @@
 using namespace hh::gfx;
 using namespace hh::needle;
 
-ResModelEditor::~ResModelEditor()
-{
-	delete previewerCamera;
-	delete previewer;
-}
-
 ResModelEditor::ResModelEditor(csl::fnd::IAllocator* allocator, ResModel* resource) : StandaloneWindow{ allocator }
 {
 	char namebuf[500];
@@ -31,7 +25,7 @@ ResModelEditor::ResModelEditor(csl::fnd::IAllocator* allocator, ResModel* resour
 	previewer->Setup({.name = nameRaw});
 	previewer->AddModel(resource, true);
 
-	previewerCamera = new (allocator) PreviewerCamera{ allocator };
+	previewerCamera = new (allocator) PreviewerCamera{allocator};
 	previewerCamera->Setup(previewer);
 }
 

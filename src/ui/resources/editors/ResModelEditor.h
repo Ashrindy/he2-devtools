@@ -8,8 +8,6 @@ public:
 	hh::fnd::Reference<Previewer> previewer;
 	hh::fnd::Reference<PreviewerCamera> previewerCamera;
 
-	virtual ~ResModelEditor();
-
 	ResModelEditor(csl::fnd::IAllocator* allocator, hh::gfx::ResModel* resource);
 	virtual void RenderContents();
 	static ResModelEditor* Create(csl::fnd::IAllocator* allocator, hh::gfx::ResModel* resource);

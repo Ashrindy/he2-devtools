@@ -4,11 +4,10 @@
 
 class PreviewerCamera : public CompatibleObject {
 public:
-	hh::fnd::Reference<Previewer> previewer{};
+	Previewer* previewer;
 	hh::gfnd::ViewportData viewportData;
 	float controlSpeed = 0.015f;
-
-	virtual ~PreviewerCamera();
+	
 	PreviewerCamera(csl::fnd::IAllocator* allocator);
 
 	void Setup(Previewer* previewer);
