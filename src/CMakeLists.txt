@@ -44,8 +44,9 @@ target_sources(${DEVTOOLS_TARGET}
         ui/common/viewers/RflDiff.cpp
         ui/common/inputs/Basic.cpp
         ui/common/overlays/Tag.cpp
-        ui/common/previewer/Previewer.cpp
-        ui/common/previewer/PreviewerCamera.cpp
+        ui/common/viewport/Viewport.cpp
+        ui/common/viewport/Scene.cpp
+        ui/common/viewport/InteractiveViewport.cpp
         ui/common/icons.cpp
         ui/common/StandaloneWindow.cpp
         ui/common/stb_image.cpp
@@ -74,6 +75,7 @@ target_sources(${DEVTOOLS_TARGET}
         utilities/math/EulerTransform.cpp
         utilities/math/Frustum.cpp
         utilities/math/MathUtils.cpp
+        utilities/math/GLMUtils.cpp
         utilities/ObjectDataUtils.cpp
         utilities/GameObjectUtils.cpp
         utilities/ResourceTypes.cpp
@@ -126,8 +128,9 @@ target_sources(${DEVTOOLS_TARGET}
         ui/common/inputs/Basic.h
         ui/common/inputs/Needle.h
         ui/common/overlays/Tag.h
-        ui/common/previewer/Previewer.h
-        ui/common/previewer/PreviewerCamera.h
+        ui/common/viewport/Viewport.h
+        ui/common/viewport/Scene.h
+        ui/common/viewport/InteractiveViewport.h
         ui/common/icons.h
         ui/common/NodeEditor.h
         ui/common/StandaloneWindow.h
@@ -170,6 +173,7 @@ target_sources(${DEVTOOLS_TARGET}
         utilities/Helpers.h
         utilities/math/EulerTransform.h
         utilities/math/MathUtils.h
+        utilities/math/GLMUtils.h
         utilities/math/Frustum.h
         utilities/math/Ray.h
         utilities/ObjectDataUtils.h

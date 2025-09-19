@@ -1,8 +1,6 @@
 #pragma once
 #include "Ray.h"
 #include "Frustum.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 Eigen::Quaternionf EulerToQuat(const Eigen::Vector3f& vec);
 Eigen::Vector3f MatrixToEuler(const Eigen::Matrix3f& mat);
@@ -17,8 +15,3 @@ Frustum ScreenRectToFrustum(const ImVec2& screenRect1, const ImVec2& screenRect2
 
 Eigen::Vector2f ImGuiCoordsToNDC(const ImVec2& coords);
 ImVec2 NDCCoordsToImGui(const Eigen::Vector2f& coords);
-
-glm::vec3 EigenToGLM(const Eigen::Vector3f& v);
-Eigen::Vector3f GLMToEigen(const glm::vec3& v);
-glm::quat EigenToGLM(const Eigen::Quaternionf& q);
-Eigen::Quaternionf GLMToEigen(const glm::quat& q);

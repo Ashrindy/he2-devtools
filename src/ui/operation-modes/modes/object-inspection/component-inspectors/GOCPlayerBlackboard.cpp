@@ -476,6 +476,7 @@ void RenderBlackboardStatusInspector(app::player::BlackboardStatus& blackboard) 
 	//csl::ut::InplaceMoveArray<uint32_t, 4> qword90;
 	//csl::ut::InplaceMoveArray<uint32_t, 4> qwordC0;
 	//csl::ut::InplaceMoveArray<uint32_t, 4> qwordF0;
+	Editor("dword120", blackboard.dword120);
 	//ut::PriorityList<Dimension, hh::fnd::Handle<hh::fnd::Messenger>> qword130;
 	Editor("oword160", blackboard.oword160);
 	ImGui::DragScalar("dword170", ImGuiDataType_U32, &blackboard.dword170);

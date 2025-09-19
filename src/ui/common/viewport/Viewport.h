@@ -1,23 +1,25 @@
 #pragma once
 #include <utilities/CompatibleObject.h>
 
-class Previewer : public CompatibleObject {
+class Viewport : public CompatibleObject {
 public:
 	struct Description {
 		unsigned int resolution[2]{ 1024, 1024 };
 		hh::needle::PBRModelInstance* modelInstance;
-		const char* name = "Previewer";
+		const char* name{ "Viewport" };
 		float fov{ 1.0476f };
 		bool setToAabb{ false };
 	};
 
 	csl::ut::MoveArray<hh::needle::PBRModelInstance*> models;
 	hh::needle::RenderTextureHandle* renderTexture;
-	hh::gfnd::ViewportData viewportData;
+	hh::gfnd::ViewportData viewportData{};
 	csl::ut::VariableString name;
 
-	virtual ~Previewer();
-	Previewer(csl::fnd::IAllocator* allocator);
+	virtual ~Viewport();
+	Viewport(csl::fnd::IAllocator* allocator);
+
+	virtual void Render();
 
 	void Setup(const Description& desc);
 
@@ -36,9 +38,10 @@ public:
 	void SetCameraTarget(const csl::math::Vector3& target);
 	void SetCameraFOV(const float fov);
 
-	hh::needle::Texture* GetTexture() const;
-	ImTextureID GetTextureID() const;
-
 	void AddModel(hh::needle::PBRModelInstance* modelInstance, bool setToAabb = false);
 	void AddModel(hh::gfx::ResModel* resModel, bool setToAabb = false);
+
+protected:
+	hh::needle::Texture* GetTexture() const;
+	ImTextureID GetTextureID() const;
 };

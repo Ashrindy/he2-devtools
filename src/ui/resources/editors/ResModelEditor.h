@@ -1,12 +1,10 @@
 #pragma once
 #include <ui/common/StandaloneWindow.h>
-#include <ui/common/previewer/Previewer.h>
-#include <ui/common/previewer/PreviewerCamera.h>
+#include <ui/common/viewport/InteractiveViewport.h>
 
 class ResModelEditor : public StandaloneWindow {
 public:
-	hh::fnd::Reference<Previewer> previewer;
-	hh::fnd::Reference<PreviewerCamera> previewerCamera;
+	hh::fnd::Reference<InteractiveViewport> viewport;
 
 	ResModelEditor(csl::fnd::IAllocator* allocator, hh::gfx::ResModel* resource);
 	virtual void RenderContents();
