@@ -2,6 +2,9 @@
 #include "ObjectDataUtils.h"
 #include <utilities/math/MathUtils.h>
 #include <utilities/GameObjectUtils.h>
+#include <ucsl-reflection/providers/rflclass.h>
+#include <ucsl-reflection/algorithms/copy.h>
+#include <ucsl-reflection/traversals/traversal.h>
 
 namespace ow2 = ucsl::resources::object_world::v2;
 namespace ow3 = ucsl::resources::object_world::v3;
@@ -82,11 +85,40 @@ void UpdateGOCTransform(hh::game::ObjectData& objData, hh::game::GOCTransform& g
 	EnsureGOCTransformIsUpdating(gocTransform);
 }
 
+#ifdef DEVTOOLS_TARGET_SDK_hite
+void* DeepCopy(const void* data, csl::fnd::IAllocator* allocator, const hh::fnd::RflClass* rflClass) {
+    auto* tinfoReg = hh::fnd::BuiltinTypeRegistry::GetTypeInfoRegistry();
+
+    size_t bufferSize = sizeof(hh::fnd::CopiedObject) + rflClass->GetSize() + sizeof(hh::fnd::CopiedObject::ObjectHeader);
+    char* buffer = new (allocator) char[bufferSize];
+
+    hh::fnd::CopiedObject* copy = (hh::fnd::CopiedObject*)buffer;
+    void* copyData = (hh::fnd::CopiedObject::ObjectHeader*)(buffer + sizeof(hh::fnd::CopiedObject));
+    hh::fnd::CopiedObject::ObjectHeader* header = (hh::fnd::CopiedObject::ObjectHeader*)(buffer + sizeof(hh::fnd::CopiedObject) + rflClass->GetSize());
+
+    copy->magic = 0x0DEE6C061;
+    copy->allocator = allocator;
+    copy->numChunks = 1;
+    copy->header = header;
+
+    ucsl::reflection::traversals::traversal<ucsl::reflection::algorithms::Copy<he2sdk::ucsl::GameInterface>>{}(copyData, (void*)data, ucsl::reflection::providers::rflclass<he2sdk::ucsl::GameInterface>::reflect(rflClass));
+
+    header->typeInfo = const_cast<hh::fnd::RflTypeInfo*>(tinfoReg->GetTypeInfo(rflClass->GetName()));
+    header->data = copyData;
+
+    return copyData;
+}
+#else
+inline void* DeepCopy(const void* data, csl::fnd::IAllocator* allocator, const hh::fnd::RflClass* rflClass) {
+    return hh::fnd::DeepCopier::Copy(data, *rflClass, allocator);
+}
+#endif
+
 void* ConstructAndDeepCopy(csl::fnd::IAllocator* allocator, const hh::fnd::RflClass* rflClass) {
     auto* tinfoReg = hh::fnd::BuiltinTypeRegistry::GetTypeInfoRegistry();
     auto* rflObj = tinfoReg->ConstructObject(allocator, rflClass->GetName());
 
-    void* result = hh::fnd::DeepCopier::Copy(rflObj, *rflClass, allocator);
+    void* result = DeepCopy(rflObj, allocator, rflClass);
 
     tinfoReg->CleanupLoadedObject(rflObj, rflClass->GetName());
     allocator->Free(rflObj);
@@ -109,7 +141,7 @@ void* CopySpawnerData(csl::fnd::IAllocator* allocator, const hh::game::GameObjec
     if (spawnerRflClass == nullptr)
         return nullptr;
 
-    return hh::fnd::DeepCopier::Copy(data, *spawnerRflClass, allocator);
+    return DeepCopy(data, allocator, spawnerRflClass);
 }
 
 ow2::ComponentData* CreateComponentDataV2(csl::fnd::IAllocator* allocator, const char* type, const hh::fnd::RflTypeInfo* rflTypeInfo) {

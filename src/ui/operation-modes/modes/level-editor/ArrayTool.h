@@ -1,4 +1,5 @@
 #pragma once
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include <ui/operation-modes/Panel.h>
 #include "Context.h"
 #include "Behaviors.h"
@@ -206,3 +207,4 @@ namespace ui::operation_modes::modes::level_editor {
 		virtual void ProcessAction(const ActionBase& action) override;
 	};
 }
+#endif

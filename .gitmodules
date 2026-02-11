@@ -37,3 +37,6 @@
 [submodule "vendor/recastnavigation/recastnavigation"]
 	path = vendor/recastnavigation/recastnavigation
 	url = https://github.com/recastnavigation/recastnavigation
+[submodule "sdks/hite-sdk"]
+	path = sdks/hite-sdk
+	url = https://github.com/HE2-SDK/hite-sdk

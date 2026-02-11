@@ -1,4 +1,4 @@
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include "Effects.h"
 #include <ui/common/editors/Basic.h>
 #include <ui/common/viewers/Basic.h>

@@ -63,7 +63,7 @@ namespace ui::operation_modes::modes::level_editor {
 	};
 }
 
-#ifndef DEVTOOLS_TARGET_SDK_rangers
+#if !defined(DEVTOOLS_TARGET_SDK_rangers) && !defined(DEVTOOLS_TARGET_SDK_hite)
 namespace app::gfx {
 	class GOCVisualGeometryInstance : public hh::game::GOComponent {
 #ifdef DEVTOOLS_TARGET_SDK_wars
@@ -154,7 +154,11 @@ template<> struct ObjectLocationVisual3DBehaviorTraits<ui::operation_modes::mode
 		for (auto& status : focusedChunk->GetObjectStatuses()) {
 			auto* gameObject = focusedChunk->GetGameObject(status.objectData);
 
-			if (gameObject && ((!gameObject->GetComponent<hh::gfx::GOCVisual>() || gameObject->GetComponent<hh::gfx::GOCVisual>() == gameObject->GetComponent<hh::gfx::GOCVisualDebugDraw>()) && !gameObject->GetComponent<app::gfx::GOCVisualGeometryInstance>()))
+			if (gameObject && ((!gameObject->GetComponent<hh::gfx::GOCVisual>() || gameObject->GetComponent<hh::gfx::GOCVisual>() == gameObject->GetComponent<hh::gfx::GOCVisualDebugDraw>()) 
+#ifndef DEVTOOLS_TARGET_SDK_hite
+				&& !gameObject->GetComponent<app::gfx::GOCVisualGeometryInstance>()
+#endif
+				))
 				f(status.objectData);
 		}
 	}

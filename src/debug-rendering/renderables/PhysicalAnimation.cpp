@@ -1,4 +1,4 @@
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include "PhysicalAnimation.h"
 #include <ui/common/overlays/Tag.h>
 #include <utilities/math/MathUtils.h>

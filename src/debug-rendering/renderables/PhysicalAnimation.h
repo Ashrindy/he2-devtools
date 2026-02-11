@@ -1,5 +1,5 @@
 #pragma once
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include <debug-rendering/DebugRenderable.h>
 
 namespace devtools::debug_rendering::renderables {

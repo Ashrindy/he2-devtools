@@ -52,9 +52,11 @@ namespace ui::operation_modes::modes::level_editor {
 			if (!placement->CanPlace())
 				ImGui::EndDisabled();
 
+#ifndef DEVTOOLS_TARGET_SDK_hite
 			ImGui::SameLine();
 			if (ImGui::Button("Array tool..."))
 				Dispatch(OpenArrayToolAction{});
+#endif
 		}
 
 		if (ImGui::BeginChild("List of objects"))

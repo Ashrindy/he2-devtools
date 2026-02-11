@@ -1,4 +1,5 @@
 #include "ArrayTool.h"
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include "Actions.h"
 #include <ui/common/inputs/Basic.h>
 #include <ui/common/editors/Basic.h>
@@ -390,3 +391,4 @@ namespace ui::operation_modes::modes::level_editor {
 		}
 	}
 }
+#endif

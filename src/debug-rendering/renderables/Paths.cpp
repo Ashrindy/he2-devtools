@@ -1,4 +1,5 @@
 #include "Paths.h"
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include <ui/common/overlays/Tag.h>
 
 namespace devtools::debug_rendering::renderables {
@@ -96,3 +97,4 @@ namespace devtools::debug_rendering::renderables {
 		}
 	}
 }
+#endif

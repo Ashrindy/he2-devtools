@@ -29,6 +29,20 @@ typedef std::tuple<
 > InspectableComponents;
 #endif
 
+#ifdef DEVTOOLS_TARGET_SDK_hite
+#include "component-inspectors/GOCTransform.h"
+#include "component-inspectors/GOCActivator.h"
+#include "component-inspectors/GOCVisual.h"
+
+typedef std::tuple <
+	hh::game::GOCTransform,
+	hh::game::GOCActivator,
+	hh::gfx::GOCVisual,
+	hh::gfx::GOCVisualTransformed,
+	hh::gfx::GOCVisualModel
+> InspectableComponents;
+#endif
+
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 #include "component-inspectors/GOCTransform.h"
 #include "component-inspectors/GOCCollider.h"
@@ -134,6 +148,10 @@ typedef std::tuple<
 #endif
 
 #ifdef DEVTOOLS_TARGET_SDK_wars
+typedef std::tuple<> InspectableGameObjects;
+#endif
+
+#ifdef DEVTOOLS_TARGET_SDK_hite
 typedef std::tuple<> InspectableGameObjects;
 #endif
 
@@ -384,13 +402,15 @@ namespace ui::operation_modes::modes::object_inspection {
 		else if (component.pStaticClass == app_cmn::camera::GOCCamera::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_CAMERA);
 #endif
+#ifndef DEVTOOLS_TARGET_SDK_hite
 		else if (component.pStaticClass == app::player::GOCPlayerParameter::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_PARAMETER);
+#endif
 		else if (component.pStaticClass == hh::path::PathComponent::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_PATH);
 		else if (component.pStaticClass == hh::game::GOCTransform::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_STATE_MACHINE);
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 		else if (component.pStaticClass == app::player::GOCPlayerHsm::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_STATE_MACHINE);
 #endif
@@ -415,8 +435,10 @@ namespace ui::operation_modes::modes::object_inspection {
 			return GetIconGlyph(IconId::COMPONENT_SOUND);
 		else if (component.pStaticClass == hh::anim::GOCAnimator::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_ANIMATION);
+#ifndef DEVTOOLS_TARGET_SDK_hite
 		else if (component.pStaticClass == app::GOCEnemy::GetClass())
 			return GetIconGlyph(IconId::COMPONENT_ENEMY);
+#endif
 #endif
 		else return GetIconGlyph(IconId::COMPONENT_OBJECT);
 	}

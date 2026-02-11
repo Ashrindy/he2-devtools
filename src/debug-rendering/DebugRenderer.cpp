@@ -17,6 +17,7 @@ namespace devtools::debug_rendering {
 		, renderable{ new (allocator) Renderable(allocator, this) }
 	{
 		renderable->name = "DevTools Debug Overlay";
+		renderable->preferredContainer = 7;
 		hh::gfnd::GraphicsContext::GetInstance()->AddRenderableToViewport(renderable, 7);// 5);
 	}
 

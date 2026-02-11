@@ -4,6 +4,9 @@
 #ifdef DEVTOOLS_TARGET_SDK_wars
 constexpr size_t gocVisualDebugDrawSetupAddr = 0x140682D50;
 #endif
+#ifdef DEVTOOLS_TARGET_SDK_hite
+constexpr size_t gocVisualDebugDrawSetupAddr = 0x140A8E0D0;
+#endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 constexpr size_t gocVisualDebugDrawSetupAddr = 0x140D06320;
 #endif

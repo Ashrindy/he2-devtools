@@ -301,7 +301,7 @@ MemoryInspector::MemoryInspector(IAllocator* allocator) : StandaloneWindow{ allo
 	for (auto& heap : lh->heaps2)
 		heapInspectors.push_back(new (allocator) HeapInspector{ allocator, this, heap.second });
 #endif
-#ifdef DEVTOOLS_TARGET_SDK_rangers
+#if defined(DEVTOOLS_TARGET_SDK_rangers) || defined(DEVTOOLS_TARGET_SDK_hite)
 	for (auto& heap : lh->heaps)
 		heapInspectors.push_back(new (allocator) HeapInspector{ allocator, this, heap.second });
 #endif

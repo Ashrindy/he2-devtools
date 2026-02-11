@@ -20,6 +20,12 @@
 #define swif_version v5
 #endif
 
+#ifdef DEVTOOLS_TARGET_SDK_hite
+#include <hite-sdk.h>
+#define he2sdk hitesdk
+#define swif_version v6
+#endif
+
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 #include <rangers-sdk.h>
 #define he2sdk rangerssdk

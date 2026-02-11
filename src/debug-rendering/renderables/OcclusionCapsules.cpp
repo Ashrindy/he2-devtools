@@ -1,6 +1,7 @@
 #include "OcclusionCapsules.h"
 #include <utilities/math/MathUtils.h>
 
+#ifndef DEVTOOLS_TARGET_SDK_hite
 namespace devtools::debug_rendering::renderables {
 	void OcclusionCapsules::RenderIngameDebugVisuals(hh::gfnd::DrawContext& ctx)
 	{
@@ -38,3 +39,4 @@ namespace devtools::debug_rendering::renderables {
 		}
 	}
 }
+#endif

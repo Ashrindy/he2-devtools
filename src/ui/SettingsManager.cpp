@@ -411,12 +411,14 @@ void SettingsManager::ApplySettings() {
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 	devtools::debug_rendering::DebugRenderingSystem::instance->collidersRenderable.meshEnabled = settings.debugRenderingRenderMeshColliders;
 #endif
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	devtools::debug_rendering::DebugRenderingSystem::instance->occlusionCapsulesRenderable.enabled = settings.debugRenderingRenderOcclusionCapsules;
 	devtools::debug_rendering::DebugRenderingSystem::instance->bonesRenderable.enabled = settings.debugRenderingRenderBones;
 	devtools::debug_rendering::DebugRenderingSystem::instance->pathsRenderable.enabled = settings.debugRenderingRenderPaths;
 	devtools::debug_rendering::DebugRenderingSystem::instance->pathsRenderable.normalsEnabled = settings.debugRenderingRenderPathNormals;
 	devtools::debug_rendering::DebugRenderingSystem::instance->pathsRenderable.tangentsEnabled = settings.debugRenderingRenderPathTangents;
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#endif
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 	devtools::debug_rendering::DebugRenderingSystem::instance->physicalAnimationRenderable.enabled = settings.debugRenderingRenderPhysicalAnimation;
 #endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
@@ -430,7 +432,9 @@ void SettingsManager::ApplySettings() {
 		settings.debugRenderingLevelEditorDebugBoxRenderPrimaryTags,
 		settings.debugRenderingLevelEditorDebugBoxRenderSecondaryTags
 	);
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	ui::operation_modes::modes::level_editor::Context::setEditorStatus = settings.levelEditorSetEditorStatus;
+#endif
 	PhotoMode::enabled = settings.enablePhotoMode;
 	strcpy_s(GlobalSettings::defaultFileDialogDirectory, settings.defaultFileDialogDir);
 

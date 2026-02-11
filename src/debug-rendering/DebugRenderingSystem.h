@@ -2,10 +2,12 @@
 #include <utilities/CompatibleObject.h>
 #include "renderables/Colliders.h"
 #include "renderables/GOCVisualDebugDraws.h"
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include "renderables/OcclusionCapsules.h"
 #include "renderables/Paths.h"
 #include "renderables/Bones.h"
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#endif
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include "renderables/PhysicalAnimation.h"
 #endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
@@ -18,10 +20,12 @@ namespace devtools::debug_rendering {
 	public:
 		renderables::Colliders collidersRenderable{};
 		renderables::GOCVisualDebugDraws gocVisualDebugDrawsRenderable{ GetAllocator() };
+#ifndef DEVTOOLS_TARGET_SDK_hite
 		renderables::OcclusionCapsules occlusionCapsulesRenderable{};
 		renderables::Paths pathsRenderable{};
 		renderables::Bones bonesRenderable{};
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#endif
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 		renderables::PhysicalAnimation physicalAnimationRenderable{};
 #endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers

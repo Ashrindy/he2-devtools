@@ -99,7 +99,7 @@ namespace ui::operation_modes::modes::level_editor {
 				obj->SendMessageImm(msg);
 			}
 			
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 			if (auto* grind = obj->GetComponent<app::game::GOCGrind>())
 				grind->updater->flags.set(app::game::GrindModelUpdater::Flag::UPDATE);
 #endif

@@ -43,12 +43,14 @@ public:
 	}
 
 	void UpdateDebugBoxGeometry() {
+#ifndef DEVTOOLS_TARGET_SDK_hite
 		hh::fnd::Geometry box{ GetAllocator() };
 		box.CreateBox({ 0, 0, 0 }, { debugBoxScale, debugBoxScale, debugBoxScale }, csl::math::Quaternion::Identity());
 		targetBox->Initialize(devtools::debug_rendering::DebugRenderer::instance->drawContext, box);
 		targetBox->SetColor({ 255, 0, 255, 255 });
 		selectedTargetBox->Initialize(devtools::debug_rendering::DebugRenderer::instance->drawContext, box);
 		selectedTargetBox->SetColor({ 255, 255, 0, 255 });
+#endif
 	}
 };
 

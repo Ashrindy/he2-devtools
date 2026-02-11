@@ -2,6 +2,7 @@
 #include <ui/common/overlays/Tag.h>
 #include <utilities/math/MathUtils.h>
 
+#ifndef DEVTOOLS_TARGET_SDK_hite
 namespace devtools::debug_rendering::renderables {
 	constexpr unsigned int maxStepCount = 256;
 
@@ -64,3 +65,4 @@ namespace devtools::debug_rendering::renderables {
 			return;
 	}
 }
+#endif

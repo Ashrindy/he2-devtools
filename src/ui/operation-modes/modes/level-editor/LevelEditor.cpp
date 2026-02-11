@@ -2,7 +2,9 @@
 #include "SetObjectList.h"
 #include "ObjectDataInspector.h"
 #include "ObjectLibrary.h"
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include "ArrayTool.h"
+#endif
 #include "Actions.h"
 #include "Behaviors.h"
 
@@ -14,7 +16,9 @@ namespace ui::operation_modes::modes::level_editor {
 		AddPanel<SetObjectList>();
 		AddPanel<ObjectDataInspector>();
 		AddPanel<ObjectLibrary>();
+#ifndef DEVTOOLS_TARGET_SDK_hite
 		AddPanel<ArrayTool>();
+#endif
 		AddBehavior<SelectionBehavior>();
 		AddBehavior<SelectionAabbBehavior>();
 		AddBehavior<SelectionTransformationBehavior>();

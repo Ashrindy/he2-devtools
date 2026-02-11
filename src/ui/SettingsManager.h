@@ -9,6 +9,9 @@ class SettingsManager
 #ifdef DEVTOOLS_TARGET_SDK_wars
         unsigned int theme{ 1 };
 #endif
+#ifdef DEVTOOLS_TARGET_SDK_hite
+        unsigned int theme{ 0 };
+#endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
         unsigned int theme{ 0 };
 #endif

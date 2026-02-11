@@ -23,7 +23,7 @@ constexpr size_t storeLayerState = 0x14088D980;
 constexpr size_t loadLayerState = 0x14088D860;
 #endif
 
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 void AddFrag(const char* name, csl::ut::String& path) {
 	if (path.size() != 0)
 		path.copyFrom("/", 1, 0, path.size());
@@ -182,8 +182,11 @@ void InstallSurfRideBugFixHooks() {
 
 	WRITE_MEMORY(unnecessaryTextureListReloadThatTrashesReloadedTextures, uint8_t, 0xEB);
 }
-#else
+#elif DEVTOOLS_TARGET_SDK_wars
 void InstallSurfRideBugFixHooks() {
 	WRITE_MEMORY(unnecessaryTextureListReloadThatTrashesReloadedTextures, uint8_t, 0xEB);
+}
+#else
+void InstallSurfRideBugFixHooks() {
 }
 #endif

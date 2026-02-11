@@ -7,10 +7,15 @@ bool PhotoMode::enabled{ true };
 PhotoMode::PhotoMode(csl::fnd::IAllocator* allocator) : Module{ allocator } {
 	::QueryPerformanceFrequency((LARGE_INTEGER*)&perfFreq);
 
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	if (GameManager::GetInstance()->GetService<app::gfx::FxParamManager>()) {
 		inputMgr = GameManager::GetInstance()->GetService<InputManager>();
 		Register();
 	}
+#else
+	inputMgr = GameManager::GetInstance()->GetService<InputManager>();
+	Register();
+#endif
 
 	GameManager::GetInstance()->AddListener(this);
 }
@@ -87,16 +92,26 @@ void PhotoMode::Update() {
 }
 
 void PhotoMode::GameServiceAddedCallback(GameService* gameService) {
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	if (gameService->staticClass == app::gfx::FxParamManager::GetClass()) {
 		inputMgr = GameManager::GetInstance()->GetService<InputManager>();
 		Register();
 	}
+#else
+	inputMgr = GameManager::GetInstance()->GetService<InputManager>();
+	Register();
+#endif
 }
 
 void PhotoMode::GameServiceRemovedCallback(GameService* gameService) {
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	if (gameService->staticClass == app::gfx::FxParamManager::GetClass()) {
 		Unregister();
 		inputMgr = nullptr;
 	}
+#else
+	Unregister();
+	inputMgr = nullptr;
+#endif
 }
 

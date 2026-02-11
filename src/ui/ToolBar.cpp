@@ -17,10 +17,13 @@
 #include "tools/wars/NeedleFxSceneDataTesterV2.h"
 #endif
 
+#if defined(DEVTOOLS_TARGET_SDK_rangers) || defined(DEVTOOLS_TARGET_SDK_hite)
+#include "core-services/GraphicsContextInspector.h"
+#include "core-services/GameUpdaterInspector.h"
+#endif
+
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 #include "core-services/GameModeInspector.h"
-#include "core-services/GameUpdaterInspector.h"
-#include "core-services/GraphicsContextInspector.h"
 #include "core-services/RenderManagerInspector.h"
 #include "core-services/RenderingEngineInspector.h"
 #include "core-services/CameraManagerInspector.h"
@@ -37,15 +40,20 @@
 
 #include "operation-modes/modes/object-inspection/ObjectInspection.h"
 #include "operation-modes/modes/level-editor/LevelEditor.h"
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include "operation-modes/modes/fxcol-editor/FxColEditor.h"
 #include "operation-modes/modes/svcol-editor/SvColEditor.h"
+#endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 #include "operation-modes/modes/pointcloud-editor/PointcloudEditor.h"
 #endif
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include "operation-modes/modes/surfride-editor/SurfRideEditor.h"
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#endif
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include "operation-modes/modes/dvscene-editor/DvSceneEditor.h"
-#else
+#endif
+#ifdef DEVTOOLS_TARGET_SDK_wars
 #include "operation-modes/modes/scene-editor/SceneEditor.h"
 #endif
 
@@ -72,11 +80,13 @@ void ToolBar::Render() {
 			if (ImGui::MenuItem("Memory"))
 				new (Desktop::instance->GetAllocator()) MemoryInspector(Desktop::instance->GetAllocator());
 #endif
-#ifdef DEVTOOLS_TARGET_SDK_rangers
+#if defined(DEVTOOLS_TARGET_SDK_rangers) || defined(DEVTOOLS_TARGET_SDK_hite)
 			if (ImGui::MenuItem("GameUpdater"))
 				new (Desktop::instance->GetAllocator()) GameUpdaterInspector(Desktop::instance->GetAllocator());
 			if (ImGui::MenuItem("GraphicsContext"))
 				new (Desktop::instance->GetAllocator()) GraphicsContextInspector(Desktop::instance->GetAllocator());
+#endif
+#ifdef DEVTOOLS_TARGET_SDK_rangers
 			if (ImGui::MenuItem("RenderManager"))
 				new (Desktop::instance->GetAllocator()) RenderManagerInspector(Desktop::instance->GetAllocator());
 			if (ImGui::MenuItem("RenderingEngine"))
@@ -100,8 +110,10 @@ void ToolBar::Render() {
 			if (ImGui::MenuItem("NeedleFxSceneData Tester") && ImGui::FindWindowByName("NeedleFxSceneData testing tool") == nullptr)
 				new (Desktop::instance->GetAllocator()) NeedleFxSceneDataTester(Desktop::instance->GetAllocator());
 #endif
+#ifndef DEVTOOLS_TARGET_SDK_hite
 			if (ImGui::MenuItem("NeedleFxSceneData Tester V2") && ImGui::FindWindowByName("NeedleFxSceneData testing tool V2") == nullptr)
 				new (Desktop::instance->GetAllocator()) NeedleFxSceneDataTesterV2(Desktop::instance->GetAllocator());
+#endif
 			if (ImGui::MenuItem("RFL Comparer"))
 				new (Desktop::instance->GetAllocator()) RflComparer(Desktop::instance->GetAllocator());
 			if (ImGui::MenuItem("Export HSON template")) {
@@ -124,9 +136,11 @@ void ToolBar::Render() {
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::object_inspection::ObjectInspection>();
 			if (ImGui::MenuItem("Level Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::level_editor::LevelEditor>();
+#ifndef DEVTOOLS_TARGET_SDK_hite
 			if (ImGui::MenuItem("SvCol Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::svcol_editor::SvColEditor>();
-#ifndef DEVTOOLS_TARGET_SDK_miller
+#endif
+#if !defined(DEVTOOLS_TARGET_SDK_miller) && !defined(DEVTOOLS_TARGET_SDK_hite)
 			if (ImGui::MenuItem("FxCol Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::fxcol_editor::FxColEditor>();
 #endif
@@ -136,12 +150,15 @@ void ToolBar::Render() {
 			if (ImGui::MenuItem("PointcloudLight Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::pointcloud_editor::PointcloudEditor>(app::gfx::ResPointcloudLight::GetTypeInfo());
 #endif
+#ifndef DEVTOOLS_TARGET_SDK_hite
 			if (ImGui::MenuItem("SurfRide Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::surfride_editor::SurfRideEditor>();
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#endif
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 			if (ImGui::MenuItem("DvScene Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::dvscene_editor::DvSceneEditor>();
-#elif DEVTOOLS_TARGET_SDK_wars
+#endif
+#ifdef DEVTOOLS_TARGET_SDK_wars
 			if (ImGui::MenuItem("Scene Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::scene_editor::SceneEditor>();
 #endif

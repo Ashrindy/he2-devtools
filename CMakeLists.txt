@@ -33,6 +33,14 @@ set(MODS_SUBFOLDER_wars "Mods")
 set(UPDATE_SERVER_NAMESPACE_wars "sonic-forces")
 set(FRIENDLY_GAME_NAME_wars "Sonic Forces")
 
+set(SDK_VAR_hite "SONIC_ORIGINS_SDK")
+set(GAME_FOLDER_DEFAULT_hite "E:\\Steam\\steamapps\\common\\SonicOrigins")
+set(GAME_EXECUTABLE_hite "SonicOrigins.exe")
+set(GAME_WORKING_DIRECTORY_hite "build/main/projects/exec")
+set(MODS_SUBFOLDER_hite "Mods")
+set(UPDATE_SERVER_NAMESPACE_hite "sonic-origins")
+set(FRIENDLY_GAME_NAME_hite "Sonic Origins")
+
 set(SDK_VAR_rangers "SONIC_FRONTIERS_SDK")
 set(GAME_FOLDER_DEFAULT_rangers "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SonicFrontiers")
 set(GAME_EXECUTABLE_rangers "SonicFrontiers.exe")
@@ -56,7 +64,7 @@ if(DEVTOOLS_INSTALL_TO_UPDATE_SERVER)
 endif()
 
 # The main target
-foreach(DEVTOOLS_TARGET_SDK miller rangers wars)
+foreach(DEVTOOLS_TARGET_SDK miller rangers hite wars)
     set(PROJECT_DESCRIPTION "${FRIENDLY_GAME_NAME_${DEVTOOLS_TARGET_SDK}} DevTools")
     set(PROJECT_LONG_DESCRIPTION "In-engine development kit for ${FRIENDLY_GAME_NAME_${DEVTOOLS_TARGET_SDK}}")
     set(GAME_FOLDER_${DEVTOOLS_TARGET_SDK} ${GAME_FOLDER_DEFAULT_${DEVTOOLS_TARGET_SDK}} CACHE STRING "The location of your ${DEVTOOLS_TARGET_SDK} game folder.")

@@ -139,6 +139,7 @@ void RenderComponentInspector(hh::gfx::GOCVisualModel& component) {
 
 	Viewer("Flags", component.description.flags.bits);
 
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	if (ImGui::TreeNode("Material instance parameters")) {
 		if (auto* meshResource = component.model->GetMeshResource()) {
 			for (auto materialIdx = 0; materialIdx < meshResource->GetMaterialCount(); materialIdx++) {
@@ -157,4 +158,5 @@ void RenderComponentInspector(hh::gfx::GOCVisualModel& component) {
 		}
 		ImGui::TreePop();
 	}
+#endif
 }

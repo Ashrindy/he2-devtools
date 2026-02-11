@@ -1,6 +1,7 @@
 #pragma once
 #include <debug-rendering/DebugRenderable.h>
 
+#ifndef DEVTOOLS_TARGET_SDK_hite
 namespace devtools::debug_rendering::renderables {
 	class Paths : public OptionalDebugRenderable {
 	public:
@@ -12,3 +13,4 @@ namespace devtools::debug_rendering::renderables {
 		virtual void RenderImGuiDebugVisuals(const ImGuiDrawContext& ctx) override;
 	};
 }
+#endif

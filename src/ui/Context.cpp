@@ -9,7 +9,9 @@
 #include <resources/ReloadManager.h>
 #include <resources/ManagedMemoryRegistry.h>
 #include "Context.h"
+#ifndef DEVTOOLS_TARGET_SDK_hite
 #include <modules/PhotoMode.h>
+#endif
 #include <ui/common/icons.h>
 #include <api/API.h>
 
@@ -42,6 +44,13 @@ constexpr size_t appShutdownAddr = 0x145401AE0;
 constexpr size_t wndProcAddr = 0x1406EC680;
 constexpr size_t displaySwapDeviceResizeBuffersAddr = 0x14082FD50;
 constexpr size_t displaySwapDevicePresentAddr = 0x1463FA880;
+#endif
+#ifdef DEVTOOLS_TARGET_SDK_hite
+constexpr size_t appResetAddr = 0x14C356FA0;
+constexpr size_t appShutdownAddr = 0x14C33A1B0;
+constexpr size_t wndProcAddr = 0x1405F0130;
+constexpr size_t displaySwapDeviceResizeBuffersAddr = 0x140957E60;
+constexpr size_t displaySwapDevicePresentAddr = 0x140957D40;
 #endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 constexpr size_t appResetAddr = 0x14FEF16E0;
@@ -213,6 +222,9 @@ void Context::init_modules()
 	//auto* allocator = &devtoolsAllocator;
 	allocator = moduleAllocator;
 #endif
+#ifdef DEVTOOLS_TARGET_SDK_hite
+	allocator = moduleAllocator;
+#endif
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 	static hh::fnd::ThreadSafeTlsfHeapAllocator devtoolsAllocator{ "devtools" };
 	devtoolsAllocator.Setup(moduleAllocator, { 100 * 1024 * 1024, true });
@@ -233,7 +245,9 @@ void Context::init_modules()
 	Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::object_inspection::ObjectInspection>();
 	resources::ManagedMemoryRegistry::Init(allocator);
 	modules = { allocator };
+#ifndef DEVTOOLS_TARGET_SDK_hite
 	modules.push_back(new (allocator) PhotoMode{ allocator });
+#endif
 }
 
 void Context::deinit_modules()

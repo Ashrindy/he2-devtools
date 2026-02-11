@@ -10,7 +10,7 @@
 #endif
 //#include "editors/ResObjectWorldEditor.h"
 #include "editors/ResMaterialEditor.h"
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include "editors/ResPhysicalSkeletonEditor.h"
 #include "editors/ResParticleLocationEditor.h"
 #endif
@@ -228,7 +228,7 @@ void ResourceBrowser::RenderResource(ManagedResource* resource) {
 		else if (typeInfo == hh::eff::ResEffect::GetTypeInfo())
 			ResEffectEditor::Create(Desktop::instance->GetAllocator(), static_cast<hh::eff::ResEffect*>(resource));
 #endif
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 		else if (typeInfo == hh::gfx::ResMaterial::GetTypeInfo())
 			ResMaterialEditor::Create(Desktop::instance->GetAllocator(), static_cast<hh::gfx::ResMaterial*>(resource));
 		else if (typeInfo == hh::pba::ResPhysicalSkeleton::GetTypeInfo())

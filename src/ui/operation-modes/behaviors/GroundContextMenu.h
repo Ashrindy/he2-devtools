@@ -13,7 +13,7 @@ public:
 	using OperationModeBehavior::OperationModeBehavior;
 
 	virtual void Render() override {
-#ifndef DEVTOOLS_TARGET_SDK_wars
+#if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 		auto* mousePicking = operationMode.GetBehavior<MousePickingBehavior<OpModeContext>>();
 
 		if (mousePicking->picked && mousePicking->mouseButton == ImGuiMouseButton_Right)
