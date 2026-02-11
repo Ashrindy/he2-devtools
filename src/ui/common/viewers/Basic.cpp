@@ -42,12 +42,18 @@ void Viewer(const char* label, const csl::ut::String& str)
 
 void Viewer(const char* label, const ucsl::objectids::ObjectIdV1& id)
 {
-	ImGui::Text("%s: %08x", label, id.id);
+	if (id.IsNull())
+		ImGui::Text("<none>");
+	else
+		ImGui::Text("%s: %08x", label, id.id);
 }
 
 void Viewer(const char* label, const ucsl::objectids::ObjectIdV2& id)
 {
-	ImGui::Text("%s: %016zx%016zx", label, id.groupId, id.objectId);
+	if (id.IsNull())
+		ImGui::Text("<none>");
+	else
+		ImGui::Text("%s: %016zx%016zx", label, id.groupId, id.objectId);
 }
 
 void Viewer(const char* label, void* const& obj) {

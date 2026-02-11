@@ -35,11 +35,14 @@ bool Editor(const char* label, hh::game::ObjectId& id) {
 	}
 	else {
 		char unkNameBuf[50];
+
+		if (id.IsNull())
+			strcpy_s(unkNameBuf, "<none>");
+		else
 #ifdef DEVTOOLS_TARGET_SDK_wars
-		sprintf_s(unkNameBuf, 50, "<%08x>", id.id);
-#endif
-#ifdef DEVTOOLS_TARGET_SDK_rangers
-		sprintf_s(unkNameBuf, 50, "<%016zx%016zx>", id.groupId, id.objectId);
+			sprintf_s(unkNameBuf, 50, "<%08x>", id.id);
+#else
+			sprintf_s(unkNameBuf, 50, "<%016zx%016zx>", id.groupId, id.objectId);
 #endif
 
 		const char* name = unkNameBuf;
@@ -71,6 +74,14 @@ bool Editor(const char* label, hh::game::ObjectId& id) {
 		}
 
 		if (isOpen) {
+			if (ImGui::Selectable("<none>")) {
+				id = {};
+				edited = true;
+			}
+
+			if (id.IsNull())
+				ImGui::SetItemDefaultFocus();
+
 			for (auto* chunk : objWorld->GetWorldChunks()) {
 				for (auto* layers : chunk->GetLayers()) {
 					for (auto* obj : layers->GetResource()->GetObjects()) {
