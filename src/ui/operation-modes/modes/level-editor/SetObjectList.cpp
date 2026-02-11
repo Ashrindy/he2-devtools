@@ -121,6 +121,19 @@ namespace ui::operation_modes::modes::level_editor {
 				if (ImGui::MenuItem("Export..."))
 					ResourceBrowser::ShowExportResourceDialog(layer.layer->GetResource());
 
+				ImGui::Separator();
+
+				auto& ctx = list.GetContext();
+				if (ImGui::MenuItem("Create Object", nullptr, nullptr, ctx.objectClassToPlace)) {
+					auto* placementB = list.GetBehavior<PlacementBehavior<Context>>();
+					auto* prevLayer = ctx.placementTargetLayer;
+					ctx.placementTargetLayer = layer.layer;
+					placementB->Place(csl::math::Vector3{ 0, 0, 0 });
+					ctx.placementTargetLayer = prevLayer;
+				}
+
+				ImGui::SetItemTooltip("Requires a selected object class from the Object Library window.");
+
 				ImGui::EndPopup();
 			}
 			ImGui::PopID();

@@ -55,6 +55,11 @@ public:
 		return traits.CanPlace() && placing;
 	}
 
+	void Place(const LocationType& location) {
+		if (CanPlace())
+			PerformPlace(location);
+	}
+
 	void Render() override {
 		auto* mousePicking = operationMode.GetBehavior<MousePickingBehavior<OpModeContext>>();
 
