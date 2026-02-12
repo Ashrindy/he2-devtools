@@ -50,9 +50,7 @@
 #ifdef DEVTOOLS_TARGET_SDK_rangers
 #include "operation-modes/modes/pointcloud-editor/PointcloudEditor.h"
 #endif
-#ifndef DEVTOOLS_TARGET_SDK_hite
 #include "operation-modes/modes/surfride-editor/SurfRideEditor.h"
-#endif
 #if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 #include "operation-modes/modes/dvscene-editor/DvSceneEditor.h"
 #endif
@@ -83,9 +81,11 @@ void ToolBar::Render() {
 			if (ImGui::MenuItem("Memory"))
 				new (Desktop::instance->GetAllocator()) MemoryInspector(Desktop::instance->GetAllocator());
 #endif
-#if defined(DEVTOOLS_TARGET_SDK_rangers) || defined(DEVTOOLS_TARGET_SDK_hite)
+#ifdef DEVTOOLS_TARGET_SDK_rangers
 			if (ImGui::MenuItem("GameUpdater"))
 				new (Desktop::instance->GetAllocator()) GameUpdaterInspector(Desktop::instance->GetAllocator());
+#endif
+#if defined(DEVTOOLS_TARGET_SDK_rangers) || defined(DEVTOOLS_TARGET_SDK_hite)
 			if (ImGui::MenuItem("GraphicsContext"))
 				new (Desktop::instance->GetAllocator()) GraphicsContextInspector(Desktop::instance->GetAllocator());
 #endif
@@ -151,10 +151,8 @@ void ToolBar::Render() {
 			if (ImGui::MenuItem("PointcloudLight Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::pointcloud_editor::PointcloudEditor>(app::gfx::ResPointcloudLight::GetTypeInfo());
 #endif
-#ifndef DEVTOOLS_TARGET_SDK_hite
 			if (ImGui::MenuItem("SurfRide Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::surfride_editor::SurfRideEditor>();
-#endif
 #if !defined(DEVTOOLS_TARGET_SDK_wars) && !defined(DEVTOOLS_TARGET_SDK_hite)
 			if (ImGui::MenuItem("DvScene Editor"))
 				Desktop::instance->SwitchToOperationMode<ui::operation_modes::modes::dvscene_editor::DvSceneEditor>();

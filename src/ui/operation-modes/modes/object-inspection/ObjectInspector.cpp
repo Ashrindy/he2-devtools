@@ -33,13 +33,15 @@ typedef std::tuple<
 #include "component-inspectors/GOCTransform.h"
 #include "component-inspectors/GOCActivator.h"
 #include "component-inspectors/GOCVisual.h"
+#include "component-inspectors/GOCSprite.h"
 
 typedef std::tuple <
 	hh::game::GOCTransform,
 	hh::game::GOCActivator,
 	hh::gfx::GOCVisual,
 	hh::gfx::GOCVisualTransformed,
-	hh::gfx::GOCVisualModel
+	hh::gfx::GOCVisualModel,
+	hh::ui::GOCSprite
 > InspectableComponents;
 #endif
 
