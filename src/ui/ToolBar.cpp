@@ -17,12 +17,15 @@
 #include "tools/wars/NeedleFxSceneDataTesterV2.h"
 #endif
 
-#if defined(DEVTOOLS_TARGET_SDK_rangers) || defined(DEVTOOLS_TARGET_SDK_hite)
+#ifdef DEVTOOLS_TARGET_SDK_hite
 #include "core-services/GraphicsContextInspector.h"
 #include "core-services/GameUpdaterInspector.h"
+#include "tools/hite/NeedleFxSceneDataTesterV2.h"
 #endif
 
 #ifdef DEVTOOLS_TARGET_SDK_rangers
+#include "core-services/GraphicsContextInspector.h"
+#include "core-services/GameUpdaterInspector.h"
 #include "core-services/GameModeInspector.h"
 #include "core-services/RenderManagerInspector.h"
 #include "core-services/RenderingEngineInspector.h"
@@ -110,10 +113,8 @@ void ToolBar::Render() {
 			if (ImGui::MenuItem("NeedleFxSceneData Tester") && ImGui::FindWindowByName("NeedleFxSceneData testing tool") == nullptr)
 				new (Desktop::instance->GetAllocator()) NeedleFxSceneDataTester(Desktop::instance->GetAllocator());
 #endif
-#ifndef DEVTOOLS_TARGET_SDK_hite
 			if (ImGui::MenuItem("NeedleFxSceneData Tester V2") && ImGui::FindWindowByName("NeedleFxSceneData testing tool V2") == nullptr)
 				new (Desktop::instance->GetAllocator()) NeedleFxSceneDataTesterV2(Desktop::instance->GetAllocator());
-#endif
 			if (ImGui::MenuItem("RFL Comparer"))
 				new (Desktop::instance->GetAllocator()) RflComparer(Desktop::instance->GetAllocator());
 			if (ImGui::MenuItem("Export HSON template")) {

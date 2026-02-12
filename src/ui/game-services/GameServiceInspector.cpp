@@ -18,7 +18,11 @@ typedef std::tuple<
 #endif
 
 #ifdef DEVTOOLS_TARGET_SDK_hite
-typedef std::tuple<> InspectableServices;
+#include "game-service-inspectors/FxParamManager.h"
+
+typedef std::tuple<
+	app::gfx::FxParamManager
+> InspectableServices;
 #endif
 
 #ifdef DEVTOOLS_TARGET_SDK_rangers
